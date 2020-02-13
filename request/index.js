@@ -1,6 +1,11 @@
 // 1.同时发送一部请求的次数
 let requestTimes=0;
 
+/*
+promise 形式的 异步代码
+@param {object} params 请求的参数
+*/
+
 export const request=(params)=>{
     //2.发弄了几次被递增几个
     requestTimes++;
@@ -34,3 +39,53 @@ export const request=(params)=>{
         })  
     })
 }
+
+/*
+Promise 形式的getSetting
+*/
+export const getSetting=()=>{
+    return new  Promise((resolve,reject)=>{
+        wx.getSetting({
+            success: (result) => {
+                resolve(result)
+            },
+            fail: (err) => {
+                 reject(err);
+            }
+        });
+    })
+}
+
+/*
+Promise 形式的openSetting
+*/
+export const openSetting=()=>{
+    return new Promise((resolve,reject)=>{
+        wx.openSetting({
+            success: (result) => {
+                resole(tesult)
+            },
+            fail: (err) => {
+                reject(err)
+            }
+        });
+          
+    })
+}
+
+/*
+Promise 形式的chooseAddress
+*/
+export const chooseAddress=()=>{
+    return new Promise((resolve,reject)=>{
+        wx.chooseAddress({
+            success: (result) => {
+                resolve(result)
+            },
+            fail: (err) => {
+                reject(err)
+            }
+        });
+    })
+}
+

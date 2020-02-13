@@ -1,1 +1,2 @@
-
+<button bindtap="handleTap">获取用户授权信息</button>
+<button bindtap="handUser">收货地址</button>

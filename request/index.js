@@ -63,7 +63,7 @@ export const openSetting=()=>{
     return new Promise((resolve,reject)=>{
         wx.openSetting({
             success: (result) => {
-                resole(tesult)
+                resolve(result)
             },
             fail: (err) => {
                 reject(err)

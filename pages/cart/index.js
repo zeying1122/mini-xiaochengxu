@@ -14,41 +14,62 @@
     1.把 wx.getSetting 、wx.openSetting、wx.chooseAddress
     改成promise的形式
 */
+import regeneratorRuntime from '../../lib/runtime/runtime';
+import {
+    getSetting,openSetting,chooseAddress
+} from "../../request/index.js"
 
 Page({
   handleTap(){
-    wx.getSetting({
-      success: (result1) => {
-        const auth=result1.authSetting["scope.address"];
-        //2.当auth=false
-        if(auth===false){
-          //2.1诱导用户打开授权页面
-          wx.openSetting({
-            success: (result2) => {
-              //2.2直接获取用户的  收货地址
-              wx.chooseAddress({
-                success: (result3) => {
-                  console.log(result3)
-                },
-                fail:()=>{},
-                complete:()=>{}
-              });
-            }
-          });
-        }else{
-          //auth  true||underfined
-          wx.chooseAddress({
-            success: (result3) => {
-              console.log(result3)
-            },
-            fail:()=>{},
-            complete:()=>{}
-          });
-        }
-      }
-    });
+    // wx.getSetting({
+    //   success: (result1) => {
+    //     const auth=result1.authSetting["scope.address"];
+    //     //2.当auth=false
+    //     if(auth===false){
+    //       //2.1诱导用户打开授权页面
+    //       wx.openSetting({
+    //         success: (result2) => {
+    //           //2.2直接获取用户的  收货地址
+    //           wx.chooseAddress({
+    //             success: (result3) => {
+    //               console.log(result3)
+    //             },
+    //             fail:()=>{},
+    //             complete:()=>{}
+    //           });
+    //         }
+    //       });
+    //     }else{
+    //       //auth  true||underfined
+    //       wx.chooseAddress({
+    //         success: (result3) => {
+    //           console.log(result3)
+    //         },
+    //         fail:()=>{},
+    //         complete:()=>{}
+    //       });
+    //     }
+    //   }
+    // });
       
+
+    //现在已经包装好的了
+    //获取用户  对于 收货地址的授权状态
+    this.getUserAddress();
+  
   },
+   async getUserAddress(){
+     //1.获取用户的授权转态
+     const result=await getSetting();
+     const auth=result.authSetting["scope.address"];
+     //2.判断授权状态
+     if(auth===false){
+       await openSetting();
+     }
+     const result2=await chooseAddress();
+     console.log(result2)
+  },
+
   handUser(){
     wx.chooseAddress({
       success: (result) => {

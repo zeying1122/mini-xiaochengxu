@@ -1,0 +1,56 @@
+.cates_view{
+    height: ~'calc(100vh - 90rpx)';
+
+    overflow: scroll;
+
+    display:flex;
+}
+page{
+    height: 100%;
+}
+.menu_group{
+//    子项的高度和父项一样高
+
+width: 160rpx;
+.menu_item{
+  height: 80rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30rpx;
+}
+ .active{
+     color:var(--themeColor);
+     border-left: 5rpx solid currentColor;
+ }
+}
+.goods_list{
+  
+//   width:~'calc(100vw-160rpx)';
+flex: 1;
+.goods_group{
+    .goods_group_title{
+        height: 80rpx;
+        display: flex;
+        justify-content:center;
+        align-items: center;
+        font-size: 30rpx;
+        .group_title{
+            margin-left: 20rpx;
+            margin-right: 20rpx;
+        }
+    }
+    .goods_group_content{
+        display: flex;
+        flex-wrap:wrap;
+        .goods_item{
+            width:33.33%;
+            text-align: center;
+            image{
+                width: 60%;
+            }
+            .item_name{}
+        }
+    }
+}
+}

@@ -1,66 +1,73 @@
-// pages/index/index.js
+/* 首页
+1,获取接口数据  轮播图 
+2.使用封装好的一部代码来发送请求
+  1.在小程序中要引入js文件的话,建议把路径补全
+  2.在被导出的js中  使用
+  export const 变量名
+  在导入的时候 直接通过  结构的代码来获取
+  import  {变量名}  from  "路径";
+3.统一在request文件中加入了调用的loading方法
+  1.需要在同时发送出去的请求都回来了再去接loading
+  */
+
+import {request} from "../../request/index.js"
+
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
+    //轮播图数组
+    swiperList: [],
+    //导航
+    catitemsList:[],
+    //楼层
+    floorList:[]
+  },
+  onLoad() {
+    //调用小程序内置的loading 效果
+    // wx.showLoading({
+    //   title: "加载中",
+    //   //遮罩层 true->用户无法再次点击屏幕
+    //   mask: true,
+    // });
+    // setTimeout(() => {
+    //   wx.hideLoading();
+    // }, 3000);
+      
+    //轮播图
+    this.getSwiperData(),
+    //导航
+    this.getCatitems(),
+    // 楼层数组
+    this.getFloorList()
+  },
+  //获取轮播图  数据
+  getSwiperData() {
+    request({
+      url: '/home/swiperdata'
+    }).then(result=>{
+      this.setData({
+        swiperList:result
+      })
+    })
 
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
+  //导航
+  getCatitems(){
+    request({
+      url: '/home/catitems'
+    }).then(result=>{
+      this.setData({
+        catitemsList: result
+      })
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  //楼层
+  getFloorList(){
+    request({
+      url: '/home/floordata'
+    }).then(result=>{
+      this.setData({
+        floorList: result
+      })
+    })
   }
 })

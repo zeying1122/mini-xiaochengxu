@@ -1,2 +1,29 @@
-<!--pages/goods_list/index.wxml-->
-<text>pages/goods_list/index.wxml</text>
+<SearchInput></SearchInput>
+<YGTabs 
+titleList="{{titleList}}"
+currentIndex="{{currentIndex}}"
+binditemChange="handleItemChange"
+>
+<view class="list_content" wx:if="{{currentIndex===0}}" >
+    <navigator class="goods_item"
+    wx:for="{{goodsList}}"
+    wx:key="goods_id"
+    url="/pages/goods_detail/index?goods_id={{item.goods_id}}"
+    >
+        <view class="img_wrap">
+            <image mode="widthFix" src="{{item.goods_small_logo || 'http://img0.imgtn.bdimg.com/it/u=2813083490,1177571032&fm=26&gp=0.jpg'}}" />
+        </view>
+        <view class="goods_info">
+            <view class="goods_name">
+                {{item.goods_name}}
+            </view>
+            <view class="goods_price">
+                ¥{{item.goods_price}}
+            </view>
+        </view>
+    </navigator>
+    <view class="list_no_more"  wx:if="{{isNoMore}}">-----没有数据咯----</view>
+</view>
+<view class="list_content" wx:elif="{{currentIndex===1}}" >1</view>
+<view class="list_content" wx:else>2</view>
+</YGTabs>

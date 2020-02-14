@@ -1,2 +1,59 @@
-<button bindtap="handleTap">获取用户授权信息</button>
-<button bindtap="handUser">收货地址</button>
+<view class="address">
+    <button wx:if="{{!address}}" type="primary" plain bindtap="handleChooeseAddres">获取收货地址</button>
+    <view class="address_info">
+        <view class="address_info_name">
+            <view>{{address.userName}}</view>
+            <view>{{address.detailAddress}}</view>
+        </view>
+        <view class="address_info_phone">{{address.telNumber}}</view>
+    </view>
+</view>
+<view class="cart">
+    <view class="cart_title">购物车</view>
+    <view class="cart_list">
+        <view class="cart_item">
+            <!-- 复选框 -->
+            <view class="cart_chb_wrap">
+                <checkbox-group>
+                    <checkbox></checkbox>
+                </checkbox-group>
+            </view>
+            <!-- 复选框 -->
+            <!-- 图片 -->
+            <view class="cart_img_wrap">
+                <image mode="widthFix" src="http://img0.imgtn.bdimg.com/it/u=2813083490,1177571032&fm=26&gp=0.jpg" />
+            </view>
+            <!-- 图片 -->
+            <!-- 商品信息 -->
+            <view class="cart_info_warp">
+                <view class="goods_name">
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Non velit vel aperiam neque dicta, cupiditate autem dolores nesciunt laudantium aliquam corrupti molestias voluptas qui dolorem consequatur quaerat nulla debitis enim!
+                </view>
+                <view class="cart_tool">
+                    <view class="goods_price">¥999</view>
+                    <view class="goods_nums_wrap">
+                        <view class="btn_num">-</view>
+                        <view class="goods_num">1</view>
+                        <view class="btn_num">+</view>
+                    </view>
+                </view>
+            </view>
+            <!-- 商品信息 -->
+        </view>
+    </view>
+</view>
+<view class="btm_cart">
+    <view class="cart_all_wrap">
+        <checkbox-group>
+            <checkbox>全选</checkbox>
+        </checkbox-group>
+    </view>
+    <view class="total_price_wrap">
+        <view class="total_price1">
+            合计
+            <text>¥{{600}}</text>
+        </view>
+        <view class="total_price2">包含运费</view>
+    </view>
+    <view class="cart_order">结算({{100}})</view>
+</view>

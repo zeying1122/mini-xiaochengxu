@@ -13,6 +13,13 @@
   3.通过async的代码 来简化以上过程
     1.把 wx.getSetting 、wx.openSetting、wx.chooseAddress
     改成promise的形式
+  4.把收货地址存入到 缓存中(下次打开小程序获取页面使用) 和 data(给页面渲染要用的)
+2.在  onshow触发
+  1.获取缓存中的收货地址信息
+  2.假设 有
+    吧按钮隐藏  在显示  地址信息
+  3.假设  没有
+    按钮显示
 */
 import regeneratorRuntime from '../../lib/runtime/runtime';
 import {
@@ -20,7 +27,18 @@ import {
 } from "../../request/index.js"
 
 Page({
-  handleTap(){
+  data:{
+  //用户收货信息
+  address:{}
+  },
+onShow (){
+  //1.获取缓存中的收货地址  默认值  空字符串
+  const address=wx.getStorageSync("address");
+  //2.给address赋值
+   this.setData({address});
+},
+  
+handleChooeseAddres(){
     // wx.getSetting({
     //   success: (result1) => {
     //     const auth=result1.authSetting["scope.address"];
@@ -59,7 +77,8 @@ Page({
   
   },
    async getUserAddress(){
-     //1.获取用户的授权转态
+    try{
+       //1.获取用户的授权转态
      const result=await getSetting();
      const auth=result.authSetting["scope.address"];
      //2.判断授权状态
@@ -67,16 +86,16 @@ Page({
        await openSetting();
      }
      const result2=await chooseAddress();
-     console.log(result2)
-  },
-
-  handUser(){
-    wx.chooseAddress({
-      success: (result) => {
-        console.log(result) 
-      }
-    });
+     result2.detailAddress=result2.provinceName+result2.cityName+result2.countyName+result2.detailInfo;
+    //  console.log(result2)
+    // 4.把收货地址存入到 缓存中(下次打开小程序获取页面使用) 和 data(给页面渲染要用的)
+    this.setData({
+      address:result2
+    })
+    wx.setStorageSync("address", result2);
       
+    }catch(error){
+    console.log(error)
+    }
   }
-
 })
